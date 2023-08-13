@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "Reviewer Assitant",
+    "version": "1.0",
+    "description": "Help Reviewer to review the document and find the error easily.",
+    "icons": {
+        "16": "icons/search-engine16.png",
+        "32": "icons/search-engine32.png",
+        "128": "icons/search-engine128.png"
+    },
+    "content_scripts": [
+    {
+      "js": ["scripts/content.js"],
+      "matches": [
+        "https://developer.chrome.com/docs/extensions/*",
+        "https://developer.chrome.com/docs/webstore/*"
+      ]
+    }
+  ]
+}
