@@ -1,11 +1,8 @@
 {
-  "name": "Geolocation - popup 1",
+  "name": "Reviewer Helper",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
     "default_popup": "scripts/popup.html"
-  },
-  "permissions": ["geolocation"],
-  "persistent": false
-  
+  }
 }
