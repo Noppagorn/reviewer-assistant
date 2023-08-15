@@ -16,55 +16,15 @@
 // offscreen document will be able to receive messages when the promise returned
 // by `offscreen.createDocument()` resolves.
 
-const header = document.querySelector('h1');
-
-const generateDMS = (coords, isLat) => {
-  const absCoords = Math.abs(coords);
-  const deg = Math.floor(absCoords);
-  const min = Math.floor((absCoords - deg) * 60);
-  const sec = ((absCoords - deg - min / 60) * 3600).toFixed(1);
-  const direction = coords >= 0 ? (isLat ? 'N' : 'E') : isLat ? 'S' : 'W';
-
-  return `${deg}°${min}'${sec}"${direction}`;
-};
-
-const getReadTime = () => {
-    const article = document.querySelector('article');
-    const text = article.textContent;
-    const wordMatchRegExp = /[^\s]+/g;
-    const words = text.matchAll(wordMatchRegExp);
-    const wordCount = [...words].length;
-    const readingTime = Math.round(wordCount / 200);
-    return readingTime;
-};
+const header = document.querySelector('p');
 
 function updateTime() {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, '0');
   const minutes = String(now.getMinutes()).padStart(2, '0');
   const seconds = String(now.getSeconds()).padStart(2, '0');
-  const timeString = `${hours}:${minutes}:${seconds}`;
-  
-  return timeString;
+  const timeString = `Time: ${hours}:${minutes}:${seconds}`;
+  header.innerText = timeString;
 }
 
-
-navigator.geolocation.getCurrentPosition(
-  (loc) => {
-    const { coords } = loc;
-    let { latitude, longitude } = coords;
-    
-    latitude = generateDMS(latitude, true);
-    longitude = generateDMS(longitude);
-
-    // const readingTime = getReadTime();
-
-    setInterval(updateTime, 1000);
-
-    header.innerText = `position: ${latitude}, ${longitude}, ${updateTime()}`;
-  },
-  (err) => {
-    header.innerText = 'error (check console)';
-    console.error(err);
-  }
-);
+setInterval(updateTime, 1000);
